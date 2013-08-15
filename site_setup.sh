@@ -4,13 +4,14 @@ if [ $(id -u) != 0 ]; then
         exit 1
 fi
 
-drupal_path=${1%/}
-user=${2}
-httpd_group="${3:-www-data}"
-site_name=${4}
-database_path=${5}
-database_user=${6}
-database_pass=${7}
+
+drupal_path=${99}
+user=${99}
+httpd_group=${99:-www-data}
+site_name=${99}
+database_path=${99}
+database_user=${99}
+database_pass=${99}
 
 # Help menu
 print_help() {
@@ -38,31 +39,33 @@ exit 0
 # Parse Command Line Arguments
 while [ $# -gt 0 ]; do
 case "$1" in
---drupal_path=*)
-drupal_path="${1#*=}"
-;;
---user=*)
-user="${1#*=}"
-;;
---httpd_group=*)
-httpd_group="${1#*=}"
-;;
---site_name=*)
-site_name="${1#*=}"
-;;
---database_path=*)
-database_path="${1#*=}"
-;;
---database_user=*)
-database_user="${1#*=}"
-;;
---database_pass=*)
-database_pass="${1#*=}"
-;;
---help) print_help;;
-*)
-printf "Invalid argument, run --help for valid arguments.\n";
-exit 1
+  --drupal_path=*)
+    drupal_path="${1#*=}"
+    ;;
+  --user=*)
+    user="${1#*=}"
+    ;;
+  --httpd_group=*)
+    httpd_group="${1#*=}"
+    ;;
+  --site_name=*)
+    site_name="${1#*=}"
+    ;;
+  --database_path=*)
+    database_path="${1#*=}"
+    ;;
+  --database_user=*)
+    database_user="${1#*=}"
+    ;;
+  --database_pass=*)
+    database_pass="${1#*=}"
+    ;;
+  --help)
+    print_help
+    ;;
+  *)
+  printf "Invalid argument, run --help for valid arguments.\n";
+  exit 1
 esac
 shift
 done
