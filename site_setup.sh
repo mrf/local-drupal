@@ -5,13 +5,7 @@ if [ $(id -u) != 0 ]; then
 fi
 
 
-drupal_path=${99}
-user=${99}
-httpd_group=${99:-www-data}
-site_name=${99}
-database_path=${99}
-database_user=${99}
-database_pass=${99}
+httpd_group='www-data'
 
 # Help menu
 print_help() {
@@ -60,7 +54,7 @@ case "$1" in
   --database_pass=*)
     database_pass="${1#*=}"
     ;;
-  --help)
+  --help) 
     print_help
     ;;
   *)
@@ -69,6 +63,12 @@ case "$1" in
 esac
 shift
 done
+
+echo $user
+echo $httpd_group
+echo $drupal_path
+echo $database_pass
+echo $database_path
 
 if [ -z "${drupal_path}" ] || [ ! -d "${drupal_path}/sites" ] || [ ! -f "${drupal_path}/core/modules/system/system.module" ] && [ ! -f "${drupal_path}/modules/system/system.module" ]; then
 printf "Please provide a valid Drupal path.\n"
